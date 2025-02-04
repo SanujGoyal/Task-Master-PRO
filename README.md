@@ -24,8 +24,7 @@ Step 1: Configure the Connection String in appsettings.json
     "DefaultConnection": "Data Source=serverAddress;Database=databaseName;User Id=yourUserId;Password=yourPassword;TrustServerCertificate=True;"
 }
 
-Step 2: Register the Connection String in Program.cs
-Ensure that the connection string is registered in the Program.cs file. It should look something like this:
+Step 2: Register the Connection String: Ensure that the connection string is registered in the Program.cs file. It should look something like this:
 
 using Microsoft.EntityFrameworkCore;
 using yourNamespace.Data;
@@ -42,13 +41,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 var app = builder.Build();
 app.Run();
 
-Step 3: Apply Migrations and Update the Database
-Open the Package Manager Console (Tools > NuGet Package Manager > Package Manager Console) and run the following commands to apply any pending migrations and update the database:
+Step 3: Apply Migrations and Update the Database: Open the Package Manager Console (Tools > NuGet Package Manager > Package Manager Console) and run the following commands to apply any pending migrations and update the database:
 
 Add-Migration <nameOfMigration>
 Update-Database
 
-Step 4: Run the Application Locally
-You can now run the application locally by pressing F5 or selecting the IIS Express option in Visual Studio.
+Step 4: Run the Application Locally: You can now run the application locally by pressing F5 or selecting the IIS Express option in Visual Studio.
 
 Step 5: Add some categories by navigating to “Categories” section in navigation bar and then add tasks as per your choice and category.
