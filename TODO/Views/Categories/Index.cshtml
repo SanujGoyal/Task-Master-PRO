@@ -1,0 +1,118 @@
+﻿@model IEnumerable<TODO.Models.Categories>
+
+@{
+    ViewData["Title"] = "Categories Index";
+}
+
+<style>
+    .checkbox {
+        width: 30px;
+        margin: auto;
+        display: flex;
+    }
+
+    table {
+        margin: 0 auto;
+        width: 80%;
+        border-collapse: collapse;
+    }
+
+    td {
+        text-align: center;
+        padding: 10px;
+        vertical-align: middle;
+    }
+
+    .category-button {
+        display: block;
+        width: 120%;
+        padding: 15px;
+        margin: 5px 0;
+        text-align: center;
+        background-color: #FF5349;
+        color: #ffff;
+        font-size: 16px;
+        border: none;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .category-button:hover {
+            background-color: #49D8D8;
+        }
+
+    .action-button {
+        display: inline-block;
+        padding: 10px 15px;
+        margin: 10px;
+        color: #fff;
+        background-color: #007bff;
+        text-decoration: none;
+        text-align: center;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .action-button:hover {
+            background-color: #FF8400;
+       }
+
+    .center-button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        width: 20%;
+        text-align: center;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        .center-button a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+        }
+</style>
+
+<h1 style="text-align: center; margin: 20px 20px;">Category List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            @* <th>Category Name</th>
+            <th>Actions</th> *@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.Action("TasksByCategory", "Categories", new { id = item.CategoriesId , categoryName = item.CategoriesName })" class="category-button">
+                        @Html.DisplayFor(modelItem => item.CategoriesName)
+                    </a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Categories" asp-route-id="@item.CategoriesId" class="action-button"><i class="bi bi-pencil-square"></i></a>
+                    <a asp-action="Delete" asp-controller="Categories" asp-route-id="@item.CategoriesId" class="action-button"><i class="bi bi-trash3-fill"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="center-button">
+    <a asp-action="Create">Add Category!</a>
+</button>
+
+<div style="text-align: center; margin-top: 20px;">
+    <a asp-controller="Home" asp-action="Index">Back to Main Page</a>
+</div>
+
+

@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    .display-4{
+        margin-top: 100px;
+    }
+</style>
+<div class="text-center">
+    <h1 class="display-4">Welcome to To Do List Manager ^ ^</h1>
+    <br />
+    <br />
+    <h3>One stop platform to keep track of all your tasks and deadlines</h3>
+    <br />
+    <h3>Click on the button below to view your task lists!</h3>
+    <br />
+    <br />
+    <div class="form-group text-center">
+        <a href="@Url.Action("Index", "Tasks")" class="btn btn-primary spaced-button">View Task List</a>
+        <a href="@Url.Action("Index", "Categories")" class="btn btn-primary spaced-button">View Categories</a>
+    </div>
+
+</div>

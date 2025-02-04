@@ -1,0 +1,150 @@
+﻿@model IEnumerable<TODO.Models.Tasks>
+
+@{
+    ViewData["Title"] = "Tasks Index";
+}
+<style>
+    .checkbox{
+        width: 30px;
+        margin: auto;
+        display: flex;
+    }
+    table {
+        margin: 0 auto;
+        width: 80%;
+        border-collapse: collapse;
+    }
+
+    .grayTask{
+        background: gray;
+    }
+
+    td {
+        text-align: center;
+        padding: 10px;
+        vertical-align: middle;
+    }
+
+    .action-button {
+        display: inline-block;
+        padding: 10px 15px;
+        margin: 10px;
+        color: #fff;
+        background-color: #007bff;
+        text-decoration: none;
+        text-align: center;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+        .action-button:hover {
+            background-color: #FF8400;
+        }
+
+    .center-button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        width: 20%;
+        text-align: center;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        .center-button a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+        }
+</style>
+
+<h1 style="text-align: center; margin: 10px 20px;">Task List</h1>
+
+
+<div class="container">
+    <table class="table">
+        <thead class="text-center">
+            <tr>
+                <th>Status</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaskName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categories.CategoriesName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+
+                <tr class="@(item.IsCompleted ? "grayTask":"")">
+                <td>
+                    @Html.CheckBoxFor(modelItem => item.IsCompleted, new { @class = "form-check checkbox" })
+                    <input class="taskid" type="hidden" value="@item.TaskId"/>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categories.CategoriesName)
+                </td>
+                <td>
+                        <a asp-action="Edit" asp-route-id="@item.TaskId" class="action-button"><i class="bi bi-pencil-square"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.TaskId" class="action-button"><i class="bi bi-trash3-fill"></i></a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
+<div>
+
+</div>
+<button class="center-button">
+    <a asp-action="Create">Create Task!</a>
+</button>
+
+<div style="text-align: center; margin-top: 20px;">
+    <a asp-controller="Home" asp-action="Index">Back to Main Page</a>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.checkbox').change(function () {
+                var taskId = $(this).siblings(".taskid").val();
+                var isChecked = $(this).is(':checked'); 
+
+                $.ajax({
+                    url: '@Url.Action("UpdateStatus", "Tasks")',
+                    type: 'POST',
+                    data: {
+                        id: taskId,
+                        isCompleted: isChecked
+                    },
+                    success: function (response) {
+                        debugger;
+                        window.location.href = "/Tasks/Index";
+                        console.log('Status updated successfully.');
+                    },
+                    error: function (xhr, status, error) {
+                        debugger;
+                        console.error('An error occurred: ' + status + ' - ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+}
