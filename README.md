@@ -10,22 +10,23 @@ Task Master Pro is a robust and efficient to-do list application designed to hel
 
 
 # How to Run the Application Locally
+```csharp
 Step 1: Configure the Connection String in appsettings.json
 1.For Windows Authentication: Add the following connection string in the appsettings.json file:
-```json
+
 "ConnectionStrings": {
     "DefaultConnection": "Server=serverAddress;Database=databaseName;Trusted_Connection=True;TrustServerCertificate=True;"
 }
 
 2.For SQL Server Authentication: Add the following connection string in the appsettings.json file:
-```json
+
 "ConnectionStrings": {
     "DefaultConnection": "Data Source=serverAddress;Database=databaseName;User Id=yourUserId;Password=yourPassword;TrustServerCertificate=True;"
 }
 
 Step 2: Register the Connection String in Program.cs
 Ensure that the connection string is registered in the Program.cs file. It should look something like this:
-```csharp
+
 using Microsoft.EntityFrameworkCore;
 using yourNamespace.Data;
 
@@ -43,7 +44,7 @@ app.Run();
 
 Step 3: Apply Migrations and Update the Database
 Open the Package Manager Console (Tools > NuGet Package Manager > Package Manager Console) and run the following commands to apply any pending migrations and update the database:
-```json
+
 Add-Migration <nameOfMigration>
 Update-Database
 
